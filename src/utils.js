@@ -1,17 +1,33 @@
 import { parse as parseUrl } from 'url';
+import pathToRegexp from 'path-to-regexp';
 
-export function isMatch(url, pattern) {
+export function isMatch(req, pattern) {
+  const { method, url } = req;
   const urlObj = parseUrl(url);
 
-  if (isRemote(pattern)) {
-    const { hostname, port, path } = parseUrl(pattern);
+  let expectPattern;
+  let expectMethod;
+
+  if (pattern.indexOf(' ') > -1) {
+    [expectMethod, expectPattern] = pattern.split(/\s+/);
+  } else {
+    expectPattern = pattern;
+  }
+
+  // Match method first.
+  if (expectMethod && expectMethod.toUpperCase() !== method.toUpperCase()) {
+    return false;
+  }
+
+  if (isRemote(expectPattern)) {
+    const { hostname, port, path } = parseUrl(expectPattern);
     //console.log(hostname, urlObj.hostname, port, urlObj.port, path, urlObj.path);
     return hostname === urlObj.hostname
       && (port || '80') === (urlObj.port || '80')
-      && !!urlObj.path.match(new RegExp(path));
+      && !!urlObj.path.match(pathToRegexp(path));
   } else {
-    //console.log(urlObj.path, pattern);
-    return !!urlObj.path.match(new RegExp(pattern));
+    //console.log(urlObj.path, expectPattern);
+    return !!urlObj.path.match(pathToRegexp(expectPattern));
   }
 }
 

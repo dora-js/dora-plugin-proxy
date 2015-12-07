@@ -1,10 +1,10 @@
 import urlLib from 'url';
 import { isRemote, isMatch } from './utils';
 import { join } from 'path';
+import { readFileSync } from 'fs';
 
 export default function(args) {
-
-  const { proxyConfig } = args;
+  const { cwd, proxyConfig } = args;
 
   return {
     summary: function() {
@@ -16,11 +16,34 @@ export default function(args) {
     },
 
     shouldUseLocalResponse: function (req, reqBody) {
+      for (var pattern in proxyConfig) {
+        const val = proxyConfig[pattern];
+        if (isMatch(req, pattern)) {
+          if (typeof val === 'function') {
+            return true;
+          }
+          if (typeof val === 'string' && !isRemote(val)) {
+            return true;
+          }
+        }
+      }
       return false;
     },
 
     dealLocalResponse: function (req, reqBody, callback) {
-      callback(statusCode, resHeader, responseData)
+      for (var pattern in proxyConfig) {
+        const val = proxyConfig[pattern];
+        if (isMatch(req, pattern)) {
+          if (typeof val === 'function') {
+            return val(req, callback);
+          }
+          if (typeof val === 'string' && !isRemote(val)) {
+            callback(200, {}, readFileSync(join(cwd, val), 'utf-8'));
+          }
+        }
+      }
+
+      //callback(statusCode, resHeader, responseData)
     },
 
     //=======================
@@ -31,7 +54,7 @@ export default function(args) {
     replaceRequestProtocol: function (req, protocol) {
       for (var pattern in proxyConfig) {
         const val = proxyConfig[pattern];
-        if (isMatch(req.url, pattern) && val.indexOf('https://') === 0) {
+        if (isMatch(req, pattern) && val.indexOf('https://') === 0) {
           return 'https';
         }
       }
@@ -50,12 +73,14 @@ export default function(args) {
           newOption.port = port;
         }
         newOption.path = join(path, reqObj.path);
+
+        // Fix anyproxy's problem
         delete newOption.headers.host;
       }
 
       for (var pattern in proxyConfig) {
         const val = proxyConfig[pattern];
-        if (isMatch(req.url, pattern) && isRemote(val)) {
+        if (isMatch(req, pattern) && isRemote(val)) {
           isModified = true;
           setOption(val);
           break;
@@ -84,9 +109,9 @@ export default function(args) {
     },
 
     replaceResponseHeader: function (req, res, header) {
-      var newHeader = header;
-      newHeader['access-control-allow-origin'] = '*';
-      return newHeader;
+      return assign({}, header, {
+        'access-control-allow-origin': '*'
+      });
     },
 
     replaceServerResDataAsync: function (req, res, serverResData, callback) {

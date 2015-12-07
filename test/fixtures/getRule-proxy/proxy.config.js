@@ -1,11 +1,9 @@
 
 module.exports = {
-  '^/react/0.13.3/': 'https://a.alipayobjects.com/',
-  '^/style.css': 'http://spmjs.io/stylesheets/',
-  '.+?': 'http://dict.youdao.com/',
+  'GET /react/:id/*': 'https://a.alipayobjects.com/',
+  'GET /style.css': 'http://spmjs.io/stylesheets/',
+  'GET /func': function(req, callback) {
+    callback(200, {}, '1');
+  },
+  'GET /local': './local',
 };
-
-// curl http://localhost:8989/react/0.13.3/react.js -> https://a.alipayobjects.com/react/0.13.3/react.js
-// curl http://localhost:8989/style.css -> http://spmjs.io/stylesheets/style.css
-// curl http://localhost:8989/ -> http://dict.youdao.com/
-

@@ -9,9 +9,10 @@ import getRule from './getRule';
 
 export default {
   'server.after': (args) => {
+    const { port } = args.query;
     new ProxyServer({
       type: 'http',
-      port: 8989,
+      port: port || 8989,
       hostname: 'localhost',
       rule: getRule(args),
     });

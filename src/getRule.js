@@ -19,5 +19,6 @@ export default function getRule(args) {
     port,
     hostname,
     proxyConfig,
+    cwd,
   });
 }

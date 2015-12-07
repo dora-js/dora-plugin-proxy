@@ -14,6 +14,6 @@ describe('getRule', () => {
   it('custom rule.js', () => {
     expect(getRule({
       cwd: join(__dirname, 'fixtures/getRule'),
-    })).toEqual({a:1});
+    }).a).toEqual(1);
   });
 });

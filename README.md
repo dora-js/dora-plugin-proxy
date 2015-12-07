@@ -1,6 +1,14 @@
 # dora-plugin-proxy
 
-## TODO:
+Proxy plugin for dora.
 
-- pattern 支持 https 协议有问题
+----
+
+## Usage
+
+```bash
+$ tnpm i dora dora-plugin-proxy -SD
+$ ./node_modules/.bin/dora --plugins proxy
+```
+
 
