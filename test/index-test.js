@@ -12,6 +12,7 @@ describe('index', () => {
       port,
       plugins: [`../../../src/index?port=${proxyPort}`],
       cwd: join(__dirname, './fixtures/getRule-proxy'),
+      verbose: true,
     });
     setTimeout(done, 1000);
   });
