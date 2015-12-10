@@ -8,7 +8,7 @@ describe('getRule', () => {
     expect(getRule({
       cwd: __dirname,
       query: {},
-    }).summary()).toEqual('Anyproxy rule: dora-plugin-anyproxy');
+    }).summary()).toEqual('Anyproxy rule: dora-plugin-proxy');
   });
 
   it('custom rule.js', () => {
