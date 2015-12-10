@@ -1,6 +1,6 @@
 {
   "name": "dora-plugin-proxy",
-  "version": "0.2.0",
+  "version": "0.3.0-beta1",
   "repository": {
     "type": "git",
     "url": "https://github.com/dora-js/dora-plugin-proxy"
@@ -37,6 +37,9 @@
     "mocha-babel": "~3.0.0",
     "pre-commit": "~1.1.2",
     "supertest": "^1.1.0"
+  },
+  "peerDependencies": {
+    "dora": "^0.1.0"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
