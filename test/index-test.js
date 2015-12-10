@@ -34,7 +34,7 @@ describe('index', () => {
       .expect('1', done);
   });
 
-  it.only('GET /local', done => {
+  it('GET /local', done => {
     request(`http://localhost:${proxyPort}`)
       .get('/local')
       .expect(/local/, done);

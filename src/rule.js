@@ -2,6 +2,7 @@ import urlLib from 'url';
 import { isRemote, isMatch } from './utils';
 import { join } from 'path';
 import { readFileSync } from 'fs';
+import assign from 'object-assign';
 
 export default function(args) {
   const { cwd, proxyConfig } = args;
