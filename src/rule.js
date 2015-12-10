@@ -9,7 +9,7 @@ export default function(args) {
 
   return {
     summary: function() {
-      return 'Anyproxy rule: dora-plugin-anyproxy';
+      return 'Anyproxy rule: dora-plugin-proxy';
     },
 
     shouldInterceptHttpsReq: function (req) {
