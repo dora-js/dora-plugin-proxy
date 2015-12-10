@@ -39,5 +39,11 @@ describe('index', () => {
       .get('/local')
       .expect(/local/, done);
   });
+
+  it('fallback to dora server', done => {
+    request(`http://localhost:${proxyPort}`)
+      .get('/not-match.js')
+      .expect(/not-match/, done);
+  });
 });
 
