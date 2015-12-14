@@ -25,7 +25,7 @@ module.exports = {
   
   // /api/ 下的所有请求通过自定义的 mock 函数进行处理
   '/api/*': function(req, callback) {
-    callback(200, {}, {status:200});
+    callback(200, {}, JSON.stringify({status:200}));
   },
   
   // 用本地文件替换某个请求
