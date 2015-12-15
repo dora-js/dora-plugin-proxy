@@ -11,7 +11,7 @@
   "main": "./lib",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib --ignore __tests__",
-    "prepublish": "npm run build",
+    "prepublishx": "npm run build",
     "test": "mocha --require babel-core/register --no-timeouts",
     "lint": "eslint --ext .js src"
   },
