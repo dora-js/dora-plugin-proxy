@@ -94,7 +94,7 @@ export default function(args) {
       if (!isModified) {
         newOption.hostname = args.hostname;
         newOption.port = args.port;
-        log.info(`${req.method} ${req.url} don't match any rule, forward to ${args.hostname}:${args.port}`);
+        log.debug(`${req.method} ${req.url} don't match any rule, forward to ${args.hostname}:${args.port}`);
       }
 
       return newOption;
