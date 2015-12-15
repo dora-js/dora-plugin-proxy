@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 import assign from 'object-assign';
 
 export default function(args) {
-  const { cwd, proxyConfig } = args;
+  const { cwd, proxyConfig, log } = args;
 
   return {
     summary: function() {
@@ -36,9 +36,11 @@ export default function(args) {
         const val = proxyConfig[pattern];
         if (isMatch(req, pattern)) {
           if (typeof val === 'function') {
+            log.info(`${req.method} ${req.url} matches ${pattern}, respond with custom function`);
             return val(req, callback);
           }
           if (typeof val === 'string' && !isRemote(val)) {
+            log.info(`${req.method} ${req.url} matches ${pattern}, respond with local file`);
             callback(200, {}, readFileSync(join(cwd, val), 'utf-8'));
           }
         }
@@ -82,6 +84,7 @@ export default function(args) {
       for (var pattern in proxyConfig) {
         const val = proxyConfig[pattern];
         if (isMatch(req, pattern) && isRemote(val)) {
+          log.info(`${req.method} ${req.url} matches ${pattern}, forward to ${val}`);
           isModified = true;
           setOption(val);
           break;
@@ -91,6 +94,7 @@ export default function(args) {
       if (!isModified) {
         newOption.hostname = args.hostname;
         newOption.port = args.port;
+        log.info(`${req.method} ${req.url} don't match any rule, forward to ${args.hostname}:${args.port}`);
       }
 
       return newOption;

@@ -2,7 +2,7 @@ import {
   proxyServer as ProxyServer,
   isRootCAFileExists,
   generateRootCA,
-} from 'anyproxy';
+} from 'dora-anyproxy';
 import getRule from './getRule';
 
 !isRootCAFileExists() && generateRootCA();
@@ -10,14 +10,21 @@ import getRule from './getRule';
 export default {
   'name': 'proxy',
   'server.after': (args) => {
-    const { port, silent } = args.query;
-    new ProxyServer({
+    const { log } = args;
+    const { port } = args.query;
+    const proxyServer = new ProxyServer({
       type: 'http',
       port: port || 8989,
       hostname: 'localhost',
       rule: getRule(args),
       disableWebInterface: true,
-      silent,
+    });
+    proxyServer.on('finish', (err, result) => {
+      if (err) {
+        log.error(err);
+      } else {
+        log.info(`listened on ${port}`);
+      }
     });
   },
 };
