@@ -53,7 +53,7 @@ or you may get it via anyproxy webinterface
 AnyProxy is about to exit with code: 0
 ```
 
-打开 `/<USER_HOME>/.anyproxy_certs/rootCA.crt`，标记为 `信任`。(这样 anyproxy 才可以自动为 https 域名加签)
+打开 `/<USER_HOME>/.anyproxy_certs/rootCA.crt`，标记为 `信任`。(这样 anyproxy 才可以为 https 域名自动加签)
 
 ![](https://os.alipayobjects.com/rmsportal/wuANbMhIgBBKVsx.png)
 
