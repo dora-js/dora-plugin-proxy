@@ -1,5 +1,10 @@
 # dora-plugin-proxy
 
+[![NPM version](https://img.shields.io/npm/v/dora-plugin-proxy.svg?style=flat)](https://npmjs.org/package/dora-plugin-proxy)
+[![Build Status](https://img.shields.io/travis/dora-js/dora-plugin-proxy.svg?style=flat)](https://travis-ci.org/dora-js/dora-plugin-proxy)
+[![Coverage Status](https://img.shields.io/coveralls/dora-js/dora-plugin-proxy.svg?style=flat)](https://coveralls.io/r/dora-js/dora-plugin-proxy)
+[![NPM downloads](http://img.shields.io/npm/dm/dora-plugin-proxy.svg?style=flat)](https://npmjs.org/package/dora-plugin-proxy)
+
 Proxy plugin for dora.
 
 ----
