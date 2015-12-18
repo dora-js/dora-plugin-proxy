@@ -34,7 +34,6 @@
     "jest-cli": "~0.8.1",
     "jest.automockoff": "~0.1.0",
     "mocha": "~2.3.4",
-    "mocha-babel": "~3.0.0",
     "mockjs": "~0.1.10",
     "pre-commit": "~1.1.2",
     "supertest": "^1.1.0"
