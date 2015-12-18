@@ -6,15 +6,7 @@ function decodeParam(val) {
     return val;
   }
 
-  try {
-    return decodeURIComponent(val);
-  } catch (err) {
-    if (err instanceof URIError) {
-      console.error('Failed to decode param \'' + val + '\'');
-    }
-
-    throw err;
-  }
+  return decodeURIComponent(val);
 }
 
 export function isRemote(str) {
@@ -47,32 +39,20 @@ export function isMatch(req, pattern) {
   return !!urlObj.pathname.match(pathToRegexp(expectPattern));
 }
 
-export function getQuery(search) {
-  const querys = {};
-  search.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-    querys[key] = decodeParam(value);
-  });
-
-  return querys;
-}
-
 export function getParams(url, pattern) {
   const keys = [];
-  let params;
   const path = pattern.trim().indexOf(' ') > -1 ? pattern.split(' ')[1] : pattern;
   if (path === '/') {
-    params = {};
-    return params;
+    return {};
   }
 
   const regexp = pathToRegexp(path, keys);
   const m = regexp.exec(url);
-
   if (!keys.length || !m) {
-    params = undefined;
-    return params;
+    return {};
   }
-  params = {};
+
+  let params = {};
   m.forEach((ms, index) => {
     if (index === 0) return;
     const key = keys[index - 1];

@@ -14,7 +14,7 @@ module.exports = {
   'GET /y.do': function (req, mock, callback) {
     if (req.query) {
       callback(200, {}, req.query.cb + '('+JSON.stringify(mock({'data': movie,'success': true}))+')');
-    };    
+    }
   },
 
   'POST /z.do': function (req, mock, callback) {
@@ -28,6 +28,6 @@ module.exports = {
     tmpl['currentPage'] = currentPage;
     callback(200, {"content-type":"application/json"}, JSON.stringify(mock(tmpl)));
   },
-  
+
   'GET /x.do': {'name': '@Name'}
 };

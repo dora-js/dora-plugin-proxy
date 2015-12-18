@@ -17,8 +17,10 @@
   "dependencies": {
     "dora-anyproxy": "~3.8.1",
     "is-plain-object": "^2.0.1",
+    "mockjs": "~0.1.10",
     "object-assign": "^4.0.1",
-    "path-to-regexp": "^1.2.1"
+    "path-to-regexp": "^1.2.1",
+    "qs": "^6.0.1"
   },
   "devDependencies": {
     "babel-cli": "~6.3.17",
@@ -31,30 +33,12 @@
     "eslint": "~1.10.3",
     "eslint-config-airbnb": "~2.1.0",
     "expect": "~1.13.0",
-    "jest-cli": "~0.8.1",
-    "jest.automockoff": "~0.1.0",
     "mocha": "~2.3.4",
-    "mockjs": "~0.1.10",
     "pre-commit": "~1.1.2",
     "supertest": "^1.1.0"
   },
   "peerDependencies": {
     "dora": "^0.1.0"
-  },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testPathIgnorePatterns": [
-      "__tests__/fixtures",
-      "__tests__/expect"
-    ],
-    "testPathDirs": [
-      "<rootDir>/src"
-    ],
-    "collectCoverageOnlyFrom": {
-      "src/index.js": true
-    },
-    "unmockedModulePathPatterns": [],
-    "verbose": true
   },
   "babel": {
     "presets": [

@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { isMatch, getParams, getQuery } from '../src/utils';
+import { isMatch, getParams } from '../src/utils';
 import { join } from 'path';
 
 describe('utils', () => {
@@ -38,10 +38,6 @@ describe('utils', () => {
 
   it('getParams', () => {
     expect(getParams('/pigcan/8/18', '/pigcan/:month/:day')).toEqual({month:'8',day:'18'})
-  });
-
-  it('getQuery', () => {
-    expect(getQuery('?cb=callback&_=underscore')).toEqual({cb:'callback',_:'underscore'})
   });
 
 });

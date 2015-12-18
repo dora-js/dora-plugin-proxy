@@ -10,7 +10,7 @@ module.exports = {
     callback(200, {}, '1');
   },
   'GET /pigcan/:id': {
-    'list|1-10': [{
+    'list|5': [{
       'id|+1': 1
     }]
   },

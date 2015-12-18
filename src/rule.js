@@ -1,11 +1,12 @@
 import urlLib from 'url';
-import { isRemote, isMatch, getParams, getQuery } from './utils';
+import { isRemote, isMatch, getParams } from './utils';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import assign from 'object-assign';
 import Mock from 'mockjs';
 import { parse as parseUrl } from 'url';
 import isPlainObject from 'is-plain-object';
+import { parse as getQuery } from 'qs';
 
 export default function(args) {
   const { cwd, proxyConfig, log } = args;
