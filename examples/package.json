@@ -1,0 +1,24 @@
+{
+  "name": "mock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "entry": {
+    "index": "./index.js"
+  },
+  "dependencies": {
+    "atool-build": "~0.2.1",
+    "jquery": "~2.1.4"
+  },
+  "devDependencies": {
+    "atool-build": "~0.3.0",
+    "dora": "~0.1.0",
+    "dora-plugin-atool-build": "~0.1.4",
+    "dora-plugin-proxy": "~0.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
