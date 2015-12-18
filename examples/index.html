@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MOCK示例</title>
+  <!-- #* 移动端开发基本属性 - 开始 *# -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <!-- #* 页面高清方案为auto模式 *# -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="format-detection" content="email=no"/>
+  
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="jqPaginator.min.js"></script>
+  <style type="text/css">
+    body {padding: 20px 100px;}
+  </style>
+  <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+  <h1>mock - AJAX</h1>
+  <pre>
+  $('#J_SendRequest').on('click', function(e){
+    $.ajax({
+      url: 'x.do',
+      type: 'GET',
+      dataType: 'json'
+    }).done(function (data, status, jqXHR) {
+      $('#J_RequestContent').text(JSON.stringify(data, null, 4));
+    })
+  })
+  </pre>
+  <blockquote>
+    <pre>
+      var name = {
+        'id|+1': 1,
+        'first': '@FIRST',
+        'last': '@LAST',
+      }
+      module.exports = {
+        'GET /x.do': {'name': '@Name'}
+      };
+    </pre>
+    <footer>proxy.config.js</footer>
+  </blockquote>
+  <p id="J_RequestContent" class="bg-success"></p>
+  <button class="btn btn-primary" id="J_SendRequest">
+    AJAX请求按钮
+  </button>
+  <hr />
+  <h1>mock - JSONP</h1>
+  <pre>
+  $('#J_SendRequest_JSONP').on('click', function(e){
+    $.ajax({
+      url: 'y.do',
+      jsonp: "cb",
+      dataType: "jsonp"
+    }).done(function (data, status, jqXHR) {
+      console.log('JSONP',data, status, jqXHR);
+      $('#J_RequestContent_JSONP').text(JSON.stringify(data, null, 4));
+    })
+  })
+  </pre>
+  <blockquote>
+    <pre>
+      var movie = {
+        'id|+1': 1,
+        'name': '@Name',
+      };
+      module.exports = {
+        'GET /y.do': function (req, mock, callback) {
+          if (req.query) {
+            callback(200, {}, req.query.cb + '('+JSON.stringify(mock({'data': movie,'success': true}))+')');
+          }   
+        }
+      };
+    </pre>
+    <footer>proxy.config.js</footer>
+  </blockquote>
+  <p id="J_RequestContent_JSONP" class="bg-success"></p>
+  <button class="btn btn-primary" id="J_SendRequest_JSONP">
+    JSONP请求按钮
+  </button>
+  <hr />
+  <h1>mock - 简单分页</h1>
+  <pre>
+  $('#J_Pagenator').jqPaginator({
+      totalPages: 100,
+      visiblePages: 10,
+      currentPage: 1,
+      onPageChange: function (num, type) {
+        var pageSize = $('#J_PageSize').val();
+        var data = {};
+        data.pageSize = pageSize;
+        data.currentPage = num;
+        $.ajax({
+          url: 'z.do',
+          dataType: "json",
+          type: 'POST',
+          data: data
+        }).done(function (data, status, jqXHR) {
+          console.log('post',data, status, jqXHR);
+          var html = '';
+          for(var i = 0; i < data.dataList.length; i++){
+            html += '<tr><td>' + data.dataList[i].id + '</td><td>' + data.dataList[i].first + '</td><td>' + data.dataList[i].last + '</td></tr>';
+          }
+          $('#J_Table').find('tbody').html(html);
+        });
+      }
+  });
+  </pre>
+    <blockquote>
+    <pre>
+      var name = {
+        'id|+1': 1,
+        'first': '@FIRST',
+        'last': '@LAST',
+      };
+      module.exports = {
+        'POST /z.do': function (req, mock, callback) {
+          var pageSize = req.postData.pageSize;
+          var currentPage = req.postData.currentPage;
+          name['id|+1'] = pageSize * (currentPage - 1);
+          var tmpl = {};
+          tmpl['dataList|'+pageSize] = [name];
+          tmpl['success'] = true;
+          tmpl['pageSize'] = pageSize;
+          tmpl['currentPage'] = currentPage;
+          callback(200, {"content-type":"application/json"}, JSON.stringify(mock(tmpl)));
+        }
+      };
+    </pre>
+    <footer>proxy.config.js</footer>
+  </blockquote>
+  <table class="table table-hover" id="J_Table">
+    <thead>
+      <tr> <th>#</th> <th>First Name</th> <th>Last Name</th></tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+  <div id="J_Pagenator" class="pagination"></div>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">pageSize</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="J_PageSize" style="width:100px;">
+        <option>5</option>
+        <option selected>10</option>
+      </select>
+    </div>
+  </div>
+  <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>

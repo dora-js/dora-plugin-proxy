@@ -6,14 +6,14 @@ export default function getRule(args) {
 
   const userRuleFile = join(cwd, 'rule.js');
   if (existsSync(userRuleFile)) {
-    log && log.info('load rule from rule.js');
+    if (log) log.info('load rule from rule.js');
     return require(userRuleFile);
   }
 
   const userProxyFile = join(cwd, 'proxy.config.js');
   let proxyConfig = {};
   if (existsSync(userProxyFile)) {
-    log && log.info('load rule from proxy.config.js');
+    if (log) log.info('load rule from proxy.config.js');
     proxyConfig = require(userProxyFile);
   }
 

@@ -46,5 +46,43 @@ describe('index', () => {
       .get('/not-match.js')
       .expect(/not-match/, done);
   });
+
+  it('GET /pigcan/:id use mockjs BASIC', done => {
+    request(`http://localhost:${proxyPort}`)
+      .get('/pigcan/1')
+      .expect(function(res){
+        if(!(res.body.list[0].id !== NaN && typeof res.body.list[0].id === 'number')) throw new Error('Error id must be a number');
+      })
+      .end(function(err) {
+        if (err) return done(err);
+        done();
+      });
+  });
+
+  it('GET /movies use mockjs DPD', done => {
+    request(`http://localhost:${proxyPort}`)
+    .get('/movies')
+    .expect(function(res){
+    if(res.body.data.length !== 5) throw new Error('Error the number of movie is not 5');
+    })
+    .end(function(err) {
+      if (err) return done(err);
+      done();
+    });
+  });
+
+  xit('GET /movies use mockjs DPD - id is specified', done => {
+    request(`http://localhost:${proxyPort}`)
+    .get('/movie/2')
+    .expect(function(res){
+      console.log(res.body)
+      if(res.body.data.id !== 2) throw new Error('Error the id of movie is not 2');
+    })
+    .end(function(err) {
+      if (err) return done(err);
+      done();
+    });
+  });
+
 });
 

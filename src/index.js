@@ -5,7 +5,7 @@ import {
 } from 'dora-anyproxy';
 import getRule from './getRule';
 
-!isRootCAFileExists() && generateRootCA();
+if (!isRootCAFileExists()) generateRootCA();
 
 export default {
   'name': 'proxy',
@@ -19,7 +19,8 @@ export default {
       rule: getRule(args),
       disableWebInterface: true,
     });
-    proxyServer.on('finish', (err, result) => {
+
+    proxyServer.on('finish', (err) => {
       if (err) {
         log.error(err);
       } else {
