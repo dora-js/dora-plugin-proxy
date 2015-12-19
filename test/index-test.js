@@ -1,6 +1,7 @@
 import dora from 'dora';
 import { join } from 'path';
 import request from 'supertest';
+import { stringify } from 'qs';
 
 const port = '12345';
 const proxyPort = '12346';
@@ -85,5 +86,41 @@ describe('index', () => {
     });
   });
 
+  it('POST /page.do?cb=jQuery21407292539589107037_1450166204069 to test req.query', done => {
+    request(`http://localhost:${proxyPort}`)
+      .post('/page.do?cb=jQuery21407292539589107037_1450166204069')
+      .expect(function(res){
+        if (res.body.cb !== 'jQuery21407292539589107037_1450166204069') throw new Error('Error cb is not jQuery21407292539589107037_1450166204069');
+      })
+      .end(function(err) {
+        if (err) return done(err);
+        done();
+      });
+  });
+
+  it('GET /birthday/:year/:month/:day to test req.params', done => {
+    request(`http://localhost:${proxyPort}`)
+      .get('/birthday/1987/8/18')
+      .expect(function(res){
+        if (!(res.body.year === '1987' && res.body.month === '8' &&  res.body.day === '18')) throw new Error('Error birthday is not 1987 8 18');
+      })
+      .end(function(err) {
+        if (err) return done(err);
+        done();
+      });
+  });
+
+  it('POST /birthday/:id to test req.postData', done => {
+    request(`http://localhost:${proxyPort}`)
+      .post('/birthday/pigcan')
+      .send(stringify({ name: 'pigcan', species: 'people' }))
+      .expect(function(res){
+        if (!(res.body.name === 'pigcan' && res.body.species === 'people')) throw new Error('Error pigcan is not a human kind suppose to be');
+      })
+      .end(function(err) {
+        if (err) return done(err);
+        done();
+      });
+  });
 });
 
