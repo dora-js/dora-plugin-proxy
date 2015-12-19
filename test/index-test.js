@@ -183,5 +183,25 @@ describe.only('index', () => {
     });
   });
 
+  it('should Handle Function: DELETE', done => {
+    request({
+      url: getUrl('/test-func/update/1?a=b'),
+      method: 'DELETE',
+      body: '12345',
+    }, (err, res, body) => {
+      expect(body).toEqual(JSON.stringify({
+        body: '12345',
+        params: {
+          action: 'update',
+          id: "1",
+        },
+        query: {
+          a: 'b',
+        },
+      }));
+      done();
+    });
+  });
+
 });
 

@@ -14,7 +14,7 @@ export default {
     const port = args.query.port || 8989;
     const proxyServer = new ProxyServer({
       type: 'http',
-      port: port,
+      port,
       hostname: 'localhost',
       rule: getRule(args),
       disableWebInterface: true,

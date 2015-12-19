@@ -3,12 +3,11 @@ import { isRemote, isMatch, getParams, getRes } from './utils';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import assign from 'object-assign';
-import Mock from 'mockjs';
 import { parse as parseUrl } from 'url';
 import isPlainObject from 'is-plain-object';
 import { parse as getQuery } from 'qs';
 
-function testMatch(req, proxyConfig, fn) {
+function batchMatch(req, proxyConfig, fn) {
   for (const pattern in proxyConfig) {
     if (proxyConfig.hasOwnProperty(pattern)) {
       const val = proxyConfig[pattern];
@@ -35,7 +34,7 @@ export default function(args) {
     },
 
     shouldUseLocalResponse(req) {
-      return testMatch(req, proxyConfig, (val, pattern) => {
+      return batchMatch(req, proxyConfig, (val) => {
         if (typeof val === 'function') {
           return true;
         }
@@ -49,7 +48,7 @@ export default function(args) {
     },
 
     dealLocalResponse(req, reqBody, callback) {
-      return testMatch(req, proxyConfig, (val, pattern) => {
+      return batchMatch(req, proxyConfig, (val, pattern) => {
         // Add body, query, params to req Object
         if (reqBody) {
           // TODO: support FormData
@@ -90,7 +89,7 @@ export default function(args) {
     //=======================
     */
     replaceRequestProtocol(req) {
-      return testMatch(req, proxyConfig, (val) => {
+      return batchMatch(req, proxyConfig, (val) => {
         if (val.indexOf('https://') === 0) {
           return 'https';
         }
@@ -113,7 +112,7 @@ export default function(args) {
         delete newOption.headers.host;
       }
 
-      testMatch(req, proxyConfig, (val, pattern) => {
+      batchMatch(req, proxyConfig, (val, pattern) => {
         if (isRemote(val)) {
           log.info(`${req.method} ${req.url} matches ${pattern}, forward to ${val}`);
           isModified = true;
