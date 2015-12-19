@@ -48,12 +48,12 @@ export default function(args) {
           if (isMatch(req, pattern)) {
             const postDataString = reqBody.toString();
             if (postDataString) {
-              req.postData = getQuery('?' + postDataString);
+              req.postData = getQuery(postDataString);
             }
 
             const urlObj = parseUrl(req.url);
-            if (urlObj.search) {
-              req.query = getQuery(urlObj.search);
+            if (urlObj.query) {
+              req.query = getQuery(urlObj.query);
             }
 
             if (typeof val === 'function') {
