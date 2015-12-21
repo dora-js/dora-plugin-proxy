@@ -1,11 +1,25 @@
 import {
   proxyServer as ProxyServer,
   isRootCAFileExists,
+  isRootCATrusted,
   generateRootCA,
+  trustRootCA
 } from 'dora-anyproxy';
 import getRule from './getRule';
 
-if (!isRootCAFileExists()) generateRootCA();
+if (!isRootCAFileExists()) {
+  generateRootCA(trust);
+} else {
+  trust();
+}
+
+function trust() {
+  isRootCATrusted(trusted => {
+    if (!trusted) {
+      trustRootCA();
+    }
+  });
+}
 
 export default {
   'name': 'proxy',
