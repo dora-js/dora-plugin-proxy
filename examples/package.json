@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "atool-build": "~0.2.1",
-    "jquery": "~2.1.4"
+    "mockjs": "^1.0.0-beta1",
+    "qs": "^6.0.1"
   },
   "devDependencies": {
     "atool-build": "~0.3.0",
