@@ -3,43 +3,50 @@ import {
   isRootCAFileExists,
   isRootCATrusted,
   generateRootCA,
-  trustRootCA
+  trustRootCA,
 } from 'dora-anyproxy';
 import getRule from './getRule';
 
-if (!isRootCAFileExists()) {
-  generateRootCA(trust);
-} else {
-  trust();
-}
-
-function trust() {
-  isRootCATrusted(trusted => {
-    if (!trusted) {
-      trustRootCA();
-    }
-  });
-}
-
 export default {
   'name': 'proxy',
-  'server.after': (args) => {
+  *'middleware.before'(args) {
+    yield new Promise((resolve, reject) => {
+      const trust = () => {
+        isRootCATrusted(trusted => {
+          if (!trusted) {
+            trustRootCA(resolve, reject);
+          } else {
+            resolve();
+          }
+        });
+      };
+
+      if (!isRootCAFileExists()) {
+        generateRootCA(trust);
+      } else {
+        trust();
+      }
+    });
+
     const { log } = args;
     const port = args.query.port || 8989;
     const proxyServer = new ProxyServer({
       type: 'http',
-      port: port,
+      port,
       hostname: 'localhost',
       rule: getRule(args),
       disableWebInterface: true,
     });
 
-    proxyServer.on('finish', (err) => {
-      if (err) {
-        log.error(err);
-      } else {
-        log.info(`listened on ${port}`);
-      }
+    yield new Promise((resolve, reject) => {
+      proxyServer.on('finish', (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          log.info(`listened on ${port}`);
+          resolve();
+        }
+      });
     });
   },
 };

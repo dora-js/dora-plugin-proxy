@@ -8,7 +8,7 @@ import { parse as parseUrl } from 'url';
 import isPlainObject from 'is-plain-object';
 import { parse as getQuery } from 'qs';
 
-export default function(args) {
+export default function (args) {
   const { cwd, proxyConfig, log } = args;
 
   return {
@@ -67,7 +67,9 @@ export default function(args) {
             }
             if (isPlainObject(val)) {
               getParams(req.url, pattern);
-              return callback(200, {'content-type': 'application/json'}, JSON.stringify(Mock.mock(val)));
+              return callback(200, {
+                'content-type': 'application/json',
+              }, JSON.stringify(Mock.mock(val)));
             }
           }
         }

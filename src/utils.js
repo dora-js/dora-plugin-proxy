@@ -52,7 +52,7 @@ export function getParams(url, pattern) {
     return {};
   }
 
-  let params = {};
+  const params = {};
   m.forEach((ms, index) => {
     if (index === 0) return;
     const key = keys[index - 1];
