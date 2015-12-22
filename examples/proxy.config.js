@@ -1,3 +1,6 @@
+var Mock = require('mockjs');
+var Qs = require('qs');
+
 var movie = {
   'id|+1': 1,
   'name': '@Name',
@@ -9,25 +12,26 @@ var name = {
   'last': '@LAST',
 };
 
+
 module.exports = {
 
-  'GET /y.do': function (req, mock, callback) {
-    if (req.query) {
-      callback(200, {}, req.query.cb + '('+JSON.stringify(mock({'data': movie,'success': true}))+')');
-    }
+  'GET /y.do': function (req, res) {
+    res.status(200);
+    res.jsonp(Mock.mock({'data': movie,'success': true}), 'cb');
   },
 
-  'POST /z.do': function (req, mock, callback) {
-    var pageSize = req.postData.pageSize;
-    var currentPage = req.postData.currentPage;
+  'POST /z.do': function (req, res) {
+    var postData = Qs.parse(req.body);
+    var pageSize = postData.pageSize;
+    var currentPage = postData.currentPage;
     name['id|+1'] = pageSize * (currentPage - 1);
     var tmpl = {};
     tmpl['dataList|'+pageSize] = [name];
     tmpl['success'] = true;
     tmpl['pageSize'] = pageSize;
     tmpl['currentPage'] = currentPage;
-    callback(200, {"content-type":"application/json"}, JSON.stringify(mock(tmpl)));
+    res.json(Mock.mock(tmpl));
   },
-
-  'GET /x.do': {'name': '@Name'}
+  
+  'GET /x.do': Mock.mock({'name': '@Name'})
 };
