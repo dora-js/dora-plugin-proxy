@@ -10,7 +10,7 @@
   "license": "MIT",
   "main": "./lib",
   "scripts": {
-    "build": "rm -rf lib && babel src --out-dir lib --ignore __tests__",
+    "build": "rm -rf lib && babel src --out-dir lib",
     "test": "mocha --require babel-core/register --no-timeouts",
     "lint": "eslint --ext .js src"
   },
