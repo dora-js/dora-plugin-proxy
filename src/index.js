@@ -9,6 +9,9 @@ if (!isRootCAFileExists()) generateRootCA();
 
 export default {
   'name': 'proxy',
+  'server.before'() {
+    this.set('__server_listen_log', false);
+  },
   'server.after'() {
     const { log, query } = this;
     const port = query && query.port || 8989;
