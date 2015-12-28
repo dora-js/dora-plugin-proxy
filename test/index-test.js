@@ -4,7 +4,7 @@ import { stringify } from 'qs';
 import request from 'request';
 import expect from 'expect';
 
-const port = 12345;
+const port = 12347;
 const proxyPort = 12355;
 
 function getUrl(url, port) {

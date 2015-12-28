@@ -9,15 +9,14 @@ if (!isRootCAFileExists()) generateRootCA();
 
 export default {
   'name': 'proxy',
-  'server.after': (args) => {
-    const { log } = args;
-    const port = args.query.port || 8989;
+  'server.after'() {
+    const { log, query } = this;
+    const port = query && query.port || 8989;
     const proxyServer = new ProxyServer({
       type: 'http',
       port,
       hostname: 'localhost',
-      rule: getRule(args),
-      disableWebInterface: true,
+      rule: getRule(this),
     });
 
     proxyServer.on('finish', (err) => {
@@ -26,6 +25,7 @@ export default {
       } else {
         log.info(`listened on ${port}`);
       }
+      this.callback();
     });
   },
 };
