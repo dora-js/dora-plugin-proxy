@@ -1,6 +1,6 @@
 module.exports = function(webpackConfig) {
   webpackConfig.externals = {
-     jquery: "jQuery"
-  }
+     jquery: "jQuery",
+  };
   return webpackConfig;
-}
+};
