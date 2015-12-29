@@ -11,7 +11,9 @@ function getUrl(url, port) {
   return `http://localhost:${port || proxyPort}${url}`;
 }
 
-describe('index', () => {
+describe('index', function() {
+
+  this.timeout(50000);
 
   describe('proxy.config.js', () => {
 
