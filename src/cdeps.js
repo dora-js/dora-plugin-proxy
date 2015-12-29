@@ -2,6 +2,14 @@ import crequire from 'crequire';
 import { existsSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 
+function endWith(f, str) {
+  return f.slice(-str.length).toLowerCase() === str.toLowerCase();
+}
+
+function isRelative(filepath) {
+  return filepath.charAt(0) === '.';
+}
+
 /**
  * Test and return the corrent file.
  * @param f {String}
@@ -23,14 +31,6 @@ function getFile(f) {
   return null;
 }
 
-function endWith(f, str) {
-  return f.slice(-str.length).toLowerCase() === str.toLowerCase();
-}
-
-function isRelative(filepath) {
-  return filepath.charAt(0) === '.';
-}
-
 /**
  * Get deps of a file.
  * @param f {String} file
@@ -41,7 +41,7 @@ function parseDeps(f) {
     return o.path;
   }
 
-  var content = readFileSync(f, 'utf-8');
+  const content = readFileSync(f, 'utf-8');
   if (endWith(f, '.js')) {
     return crequire(content).map(getPath);
   }
@@ -50,13 +50,13 @@ function parseDeps(f) {
 }
 
 function parse(entry) {
-  var f = getFile(entry);
+  const f = getFile(entry);
   if (!f) return [];
 
-  var deps = [entry];
+  let deps = [entry];
   parseDeps(f).forEach(dep => {
     if (isRelative(dep)) {
-      var nextDep = resolve(dirname(f), dep);
+      const nextDep = resolve(dirname(f), dep);
       deps = deps.concat(parse(nextDep));
     }
   });

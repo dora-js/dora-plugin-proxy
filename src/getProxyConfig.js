@@ -19,7 +19,7 @@ export default function getProxyConfig(configPath, args) {
   }
 
   function loadFile() {
-    if (!cache && existsSync(proxyFile) ) {
+    if (!cache && existsSync(proxyFile)) {
       log.debug(`reload ${configPath}`);
       const depList = cdeps(proxyFile);
       depList.forEach(dep => delete require.cache[require.resolve(dep)]);
@@ -46,5 +46,5 @@ export default function getProxyConfig(configPath, args) {
     if (timer) clearTimeout(timer);
     timer = setTimeout(clearCache, clearCacheDelay);
     return loadFile() || defaultProxy;
-  }
+  };
 }
