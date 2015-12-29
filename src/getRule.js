@@ -1,5 +1,6 @@
 import { join } from 'path';
 import { existsSync } from 'fs';
+import getProxyConfigFn from './getProxyConfig';
 
 export default function getRule(args) {
   const { cwd, port, localIP: hostname, log } = args;
@@ -11,18 +12,11 @@ export default function getRule(args) {
     return require(userRuleFile);
   }
 
-  const configPath = config || 'proxy.config.js';
-  const userProxyFile = join(cwd, configPath);
-  let proxyConfig = {};
-  if (existsSync(userProxyFile)) {
-    if (log) log.info(`load rule from ${configPath}`);
-    proxyConfig = require(userProxyFile);
-  }
-
+  const getProxyConfig = getProxyConfigFn(config || 'proxy.config.js', args);
   return require('./rule')({
     port,
     hostname,
-    proxyConfig,
+    getProxyConfig,
     cwd,
     log,
   });

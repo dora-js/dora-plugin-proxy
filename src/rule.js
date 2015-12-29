@@ -22,7 +22,7 @@ function batchMatch(req, proxyConfig, fn) {
 }
 
 export default function(args) {
-  const { cwd, proxyConfig, log } = args;
+  const { cwd, getProxyConfig, log } = args;
 
   return {
     summary() {
@@ -34,7 +34,7 @@ export default function(args) {
     },
 
     shouldUseLocalResponse(req) {
-      return batchMatch(req, proxyConfig, (val) => {
+      return batchMatch(req, getProxyConfig(), (val) => {
         if (typeof val === 'function') {
           return true;
         }
@@ -48,7 +48,7 @@ export default function(args) {
     },
 
     dealLocalResponse(req, reqBody, callback) {
-      return batchMatch(req, proxyConfig, (val, pattern) => {
+      return batchMatch(req, getProxyConfig(), (val, pattern) => {
         // Add body, query, params to req Object
         if (reqBody) {
           // TODO: support FormData
@@ -89,7 +89,7 @@ export default function(args) {
     //=======================
     */
     replaceRequestProtocol(req) {
-      return batchMatch(req, proxyConfig, (val) => {
+      return batchMatch(req, getProxyConfig(), (val) => {
         if (val.indexOf('https://') === 0) {
           return 'https';
         }
@@ -112,7 +112,7 @@ export default function(args) {
         delete newOption.headers.host;
       }
 
-      batchMatch(req, proxyConfig, (val, pattern) => {
+      batchMatch(req, getProxyConfig(), (val, pattern) => {
         if (isRemote(val)) {
           log.info(`${req.method} ${req.url} matches ${pattern}, forward to ${val}`);
           isModified = true;
