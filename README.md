@@ -16,6 +16,11 @@ $ npm i dora dora-plugin-proxy -SD
 $ ./node_modules/.bin/dora --plugins proxy
 ```
 
+## Docs
+
+- [使用入门](./docs/get-started.md)
+- [在线调试](./docs/online-debug.md)
+
 ## 参数
 
 ### port
