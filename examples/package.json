@@ -7,18 +7,17 @@
     "index": "./index.js"
   },
   "dependencies": {
-    "atool-build": "~0.2.1",
+    "atool-build": "~0.4.x",
     "mockjs": "^1.0.0-beta1",
     "qs": "^6.0.1"
   },
   "devDependencies": {
-    "atool-build": "~0.3.0",
-    "dora": "~0.1.0",
-    "dora-plugin-atool-build": "~0.1.4",
-    "dora-plugin-proxy": "~0.2.0"
+    "dora": "0.2.x",
+    "dora-plugin-atool-build": "~0.4.x",
+    "dora-plugin-proxy": "~0.5.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "dora --plugins proxy,atool-build"
   },
   "author": "",
   "license": "ISC"
