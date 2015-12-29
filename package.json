@@ -20,6 +20,7 @@
     "lint"
   ],
   "dependencies": {
+    "crequire": "^1.7.0",
     "dora-anyproxy": "~3.8.4",
     "is-plain-object": "~2.0.1",
     "mime-db": "~1.20.0",

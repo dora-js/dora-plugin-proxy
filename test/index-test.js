@@ -19,7 +19,7 @@ describe('index', () => {
       dora({
         port,
         plugins: [`../../../src/index?port=${proxyPort}`],
-        cwd: join(__dirname, './fixtures/getRule-proxy'),
+        cwd: join(__dirname, './fixtures/proxy'),
         verbose: true,
       });
       setTimeout(done, 1000);
@@ -205,7 +205,7 @@ describe('index', () => {
       dora({
         port: port+1,
         plugins: [`../../../src/index?port=${proxyPort+1}&config=proxy.config.test.js`],
-        cwd: join(__dirname, './fixtures/getRule-proxy'),
+        cwd: join(__dirname, './fixtures/proxy'),
         verbose: true,
       });
       setTimeout(done, 1000);

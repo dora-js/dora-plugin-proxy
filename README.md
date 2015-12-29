@@ -16,7 +16,21 @@ $ npm i dora dora-plugin-proxy -SD
 $ ./node_modules/.bin/dora --plugins proxy
 ```
 
-## Config
+## 参数
+
+### port
+
+代理服务器端口号。
+
+### watchDirs
+
+定义哪些目录下的规则定义可以实时刷新。
+
+### watchDelay
+
+目录监听延迟，默认：300 毫秒。
+
+## 规则定义
 
 在项目目录新增 `proxy.config.js` 可定制 proxy 规则。
 

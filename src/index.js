@@ -14,6 +14,7 @@ export default {
   },
   'server.after'() {
     const { log, query } = this;
+    log.debug(`query: ${JSON.stringify(query)}`);
     const port = query && query.port || 8989;
     const proxyServer = new ProxyServer({
       type: 'http',
@@ -21,7 +22,6 @@ export default {
       hostname: 'localhost',
       rule: getRule(this),
     });
-
     proxyServer.on('finish', (err) => {
       if (err) {
         log.error(err);
