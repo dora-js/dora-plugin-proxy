@@ -16,17 +16,21 @@ export function isRemote(str) {
   return str.indexOf('http://') === 0 || str.indexOf('https://') === 0;
 }
 
+export function getExpects(pattern) {
+  const expect = {};
+  if (pattern.indexOf(' ') > -1) {
+    [expect.expectMethod, expect.expectPattern] = pattern.split(/\s+/);
+  } else {
+    expect.expectPattern = pattern;
+  }
+
+  return expect;
+}
+
 export function isMatch(req, pattern) {
   const { method, url } = req;
   const urlObj = parseUrl(url);
-  let expectPattern;
-  let expectMethod;
-
-  if (pattern.indexOf(' ') > -1) {
-    [expectMethod, expectPattern] = pattern.split(/\s+/);
-  } else {
-    expectPattern = pattern;
-  }
+  const { expectMethod, expectPattern } = getExpects(pattern);
   // Match method first.
   if (expectMethod && expectMethod.toUpperCase() !== method.toUpperCase()) {
     return false;
@@ -55,17 +59,15 @@ export function getParams(url, pattern) {
     return {};
   }
 
-  const params = {};
-  m.forEach((ms, index) => {
-    if (index === 0) return;
-    const key = keys[index - 1];
+  return m.slice(1).reduce((prev, ms, index) => {
+    const key = keys[index];
     const prop = key.name;
     const val = decodeParam(ms);
-    if (val !== undefined || !(Object.prototype.hasOwnProperty.call(params, prop))) {
-      params[prop] = val;
+    if (val !== undefined || !(Object.prototype.hasOwnProperty.call(prev, prop))) {
+      prev[prop] = val;
     }
-  });
-  return params;
+    return prev;
+  }, {});
 }
 
 export function getRes(req, callback) {
