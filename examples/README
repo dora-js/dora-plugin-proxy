@@ -1,5 +1,0 @@
-### USEAGE
-
-* `npm i`
-
-* `./node_modules/.bin/dora --plugins atool-build,proxy  -p 8001 --verbose`
