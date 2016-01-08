@@ -72,7 +72,9 @@ export function getParams(url, pattern) {
 
 export function getRes(req, callback) {
   let status = 200;
-  const headers = {};
+  const headers = {
+    'access-control-allow-origin': '*',
+  };
 
   function normalizeData(data) {
     switch (typeof data) {
