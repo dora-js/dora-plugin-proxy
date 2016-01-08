@@ -47,7 +47,8 @@ export default function(args) {
       }) || false;
     },
 
-    dealLocalResponse(req, reqBody, callback) {
+    dealLocalResponse(_req, reqBody, callback) {
+      const req = _req;
       return batchMatch(req, getProxyConfig(), (val, pattern) => {
         // Add body, query, params to req Object
         if (reqBody) {
@@ -124,7 +125,9 @@ export default function(args) {
       if (!isModified) {
         newOption.hostname = args.hostname;
         newOption.port = args.port;
-        log.debug(`${req.method} ${req.url} don't match any rule, forward to ${args.hostname}:${args.port}`);
+        log.debug(
+          `${req.method} ${req.url} don't match any rule, forward to ${args.hostname}:${args.port}`
+        );
       }
 
       return newOption;

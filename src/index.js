@@ -1,10 +1,14 @@
 import {
   proxyServer as ProxyServer,
+  isRootCAFileExists,
+  generateRootCA,
 } from 'dora-anyproxy';
 import getRule from './getRule';
 
+if (!isRootCAFileExists()) generateRootCA();
+
 export default {
-  'name': 'proxy',
+  name: 'proxy',
   'server.before'() {
     this.set('__server_listen_log', false);
   },

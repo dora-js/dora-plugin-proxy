@@ -64,7 +64,7 @@ export function getParams(url, pattern) {
     const prop = key.name;
     const val = decodeParam(ms);
     if (val !== undefined || !(Object.prototype.hasOwnProperty.call(prev, prop))) {
-      prev[prop] = val;
+      return { ...prev, ...{ [prop]: val } };
     }
     return prev;
   }, {});
