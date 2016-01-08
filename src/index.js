@@ -1,18 +1,14 @@
 import {
   proxyServer as ProxyServer,
-  isRootCAFileExists,
-  generateRootCA,
 } from 'dora-anyproxy';
 import getRule from './getRule';
-
-if (!isRootCAFileExists()) generateRootCA();
 
 export default {
   'name': 'proxy',
   'server.before'() {
     this.set('__server_listen_log', false);
   },
-  'server.after'() {
+  'middleware.before'() {
     const { log, query } = this;
     log.debug(`query: ${JSON.stringify(query)}`);
     const port = query && query.port || 8989;
@@ -21,6 +17,7 @@ export default {
       port,
       hostname: 'localhost',
       rule: getRule(this),
+      autoTrust: true,
     });
     proxyServer.on('finish', (err) => {
       if (err) {
