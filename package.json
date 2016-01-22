@@ -58,8 +58,6 @@
     ]
   },
   "files": [
-    "lib",
-    "package.json",
-    "README.md"
+    "lib"
   ]
 }
