@@ -27,7 +27,7 @@
     "mime-type": "~3.0.4",
     "object-assign": "~4.0.1",
     "path-to-regexp": "~1.2.1",
-    "qs": "~6.0.1"
+    "qs": "~6.1.0"
   },
   "devDependencies": {
     "babel-cli": "~6.4.0",
