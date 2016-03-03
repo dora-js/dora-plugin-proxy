@@ -45,7 +45,7 @@
     "request": "^2.67.0"
   },
   "peerDependencies": {
-    "dora": "~0.2.2"
+    "dora": "~0.3.0"
   },
   "babel": {
     "presets": [
