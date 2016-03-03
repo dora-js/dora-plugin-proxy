@@ -1,6 +1,5 @@
 import { parse as parseUrl } from 'url';
 import pathToRegexp from 'path-to-regexp';
-import assign from 'object-assign';
 import isPlainObject from 'is-plain-object';
 import mime from 'mime-type/with-db';
 
@@ -72,7 +71,7 @@ export function getParams(url, pattern) {
 
 export function getRes(req, callback) {
   let status = 200;
-  const headers = {
+  let headers = {
     'access-control-allow-origin': '*',
   };
 
@@ -91,7 +90,7 @@ export function getRes(req, callback) {
     },
     set(key, val) {
       if (isPlainObject(key)) {
-        assign(headers, key);
+        headers = {...headers, ...key};
       } else {
         headers[key] = val;
       }

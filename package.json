@@ -25,7 +25,6 @@
     "is-plain-object": "~2.0.1",
     "mime-db": "~1.21.0",
     "mime-type": "~3.0.4",
-    "object-assign": "~4.0.1",
     "path-to-regexp": "~1.2.1",
     "qs": "~6.0.1"
   },

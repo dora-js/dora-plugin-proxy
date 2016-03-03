@@ -2,7 +2,6 @@ import urlLib from 'url';
 import { isRemote, isMatch, getParams, getRes } from './utils';
 import { join } from 'path';
 import { readFileSync } from 'fs';
-import assign from 'object-assign';
 import { parse as parseUrl } from 'url';
 import isPlainObject from 'is-plain-object';
 import { parse as getQuery } from 'qs';
@@ -148,9 +147,10 @@ export default function(args) {
     },
 
     replaceResponseHeader(req, res, header) {
-      return assign({}, header, {
+      return {
+        ...header,
         'access-control-allow-origin': '*',
-      });
+      };
     },
 
     replaceServerResDataAsync(req, res, serverResData, callback) {
