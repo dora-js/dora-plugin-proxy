@@ -105,6 +105,16 @@ export function getRes(req, callback) {
       return this.type('json').end(JSON.stringify(data));
     },
     jsonp(data, callbackName) {
+      if (!req.query || (req.query[callbackName || 'callback'] === undefined)) {
+        return this.type('json').status(400)
+          .end({
+            errors: [{
+              status: 400,
+              detail: 'Should provide a callback for JSONP',
+            }],
+          });
+      }
+
       const fn = req.query[callbackName || 'callback'];
       return this.type('json').end(`${fn}(${JSON.stringify(data)})`);
     },
