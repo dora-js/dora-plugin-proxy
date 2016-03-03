@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 import getProxyConfigFn from './getProxyConfig';
 
 export default function getRule(args) {
-  const { cwd, port, localIP: hostname, log } = args;
+  const { cwd, port, log } = args;
   const { config } = args.query || {};
 
   const userRuleFile = join(cwd, 'rule.js');
@@ -15,7 +15,7 @@ export default function getRule(args) {
   const getProxyConfig = getProxyConfigFn(config || 'proxy.config.js', args);
   return require('./rule')({
     port,
-    hostname,
+    hostname: '127.0.0.1',
     getProxyConfig,
     cwd,
     log,
