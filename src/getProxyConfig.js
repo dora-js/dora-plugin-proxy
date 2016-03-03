@@ -33,7 +33,11 @@ export default function getProxyConfig(configPath, args) {
         });
       });
 
-      cache = require(proxyFile);
+      try {
+        cache = require(proxyFile);
+      } catch(e) {
+        log.error(`${configPath} parse error`);
+      }
     }
     return cache;
   }
