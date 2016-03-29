@@ -20,6 +20,10 @@ function batchMatch(req, proxyConfig, fn) {
   }
 }
 
+function winPath(path) {
+  return path.replace(/\\/g, '/');
+}
+
 export default function(args) {
   const { cwd, getProxyConfig, log } = args;
 
@@ -107,7 +111,7 @@ export default function(args) {
         if (port) {
           newOption.port = port;
         }
-        newOption.path = join(path, reqObj.path);
+        newOption.path = winPath(join(path, reqObj.path));
         // Fix anyproxy
         delete newOption.headers.host;
       }
