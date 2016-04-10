@@ -33,6 +33,7 @@
     "babel-core": "~6.4.5",
     "babel-istanbul": "^0.6.0",
     "babel-plugin-add-module-exports": "~0.1.1",
+    "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
     "babel-preset-es2015": "~6.3.13",
     "babel-preset-stage-0": "~6.3.13",
     "coveralls": "^2.11.6",
@@ -42,6 +43,7 @@
     "expect": "~1.13.0",
     "mocha": "~2.4.1",
     "pre-commit": "~1.1.2",
+    "regexpu-core": "^2.0.0",
     "request": "^2.67.0"
   },
   "peerDependencies": {
