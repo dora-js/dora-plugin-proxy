@@ -6,6 +6,11 @@ module.exports = {
   // Forward with path
   'GET /card_min_9f4a07ca.css': 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/mancard/css/',
 
+  // Forward with subPath
+  // https://g.alicdn.com/tb-page/taobao-home/0.0.50/index.css
+  '/someDir/(.*)': 'https://g.alicdn.com/tb-page/taobao-home/',
+
+
   // 本地文件
   'GET /test-local': './local',
 
@@ -28,4 +33,5 @@ module.exports = {
       query: req.query,
     });
   },
+
 };

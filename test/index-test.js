@@ -41,6 +41,13 @@ describe('index', function() {
       });
     });
 
+     it('Forward with subPath', done => {
+      request(getUrl('/someDir/0.0.50/index.css'), (err, res, body) => {
+        expect(body.indexOf('iconfont') > -1).toExist();
+        done();
+      });
+    });
+
     it('should Handle Local File', done => {
       request(getUrl('/local'), (err, res, body) => {
         expect(body.trim()).toEqual('local');
