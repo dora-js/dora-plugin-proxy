@@ -90,7 +90,7 @@ export function getRes(req, callback) {
     },
     set(key, val) {
       if (isPlainObject(key)) {
-        headers = {...headers, ...key};
+        headers = { ...headers, ...key };
       } else {
         headers[key] = val;
       }

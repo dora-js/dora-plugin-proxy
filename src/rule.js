@@ -6,6 +6,12 @@ import { parse as parseUrl } from 'url';
 import isPlainObject from 'is-plain-object';
 import { parse as getQuery } from 'qs';
 
+function getSubPath(req, pattern) {
+  const url = req.method + ' ' + req.path;
+  const match = url.match(pattern);
+  return match && match[1] || '';
+}
+
 function batchMatch(req, proxyConfig, fn) {
   for (const pattern in proxyConfig) {
     if (proxyConfig.hasOwnProperty(pattern)) {
@@ -101,9 +107,23 @@ export default function(args) {
     },
 
     replaceRequestOption(req, option) {
+      const proxyConfig = getProxyConfig();
       const newOption = option;
       const reqObj = urlLib.parse(req.url);
       let isModified = false;
+
+      function replacePath(path) {
+        let retPath = path;
+        for (const pattern in proxyConfig) {
+          if (proxyConfig.hasOwnProperty(pattern)) {
+            const subPath = getSubPath(option, pattern);
+            if (subPath) {
+              retPath = retPath.replace(RegExp(pattern), '/' + subPath);
+            }
+          }
+        }
+        return retPath;
+      }
 
       function setOption(val) {
         const { hostname, port, path } = urlLib.parse(val);
@@ -111,12 +131,13 @@ export default function(args) {
         if (port) {
           newOption.port = port;
         }
-        newOption.path = winPath(join(path, reqObj.path));
+        newOption.path = replacePath(winPath(join(path, reqObj.path)));
+
         // Fix anyproxy
         delete newOption.headers.host;
       }
 
-      batchMatch(req, getProxyConfig(), (val, pattern) => {
+      batchMatch(req, proxyConfig, (val, pattern) => {
         if (isRemote(val)) {
           log.info(`${req.method} ${req.url} matches ${pattern}, forward to ${val}`);
           isModified = true;

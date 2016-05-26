@@ -35,7 +35,7 @@ export default function getProxyConfig(configPath, args) {
 
       try {
         cache = require(proxyFile);
-      } catch(e) {
+      } catch (e) {
         log.error(`${configPath} parse error`);
       }
     }

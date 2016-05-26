@@ -52,6 +52,10 @@ module.exports = {
   // Forward 到另一个服务器，不指定来源服务器
   'GET /assets/*': 'https://assets.online/',
   
+  // Forward 到另一个服务器，并指定子路径
+  // 请求 /someDir/0.0.50/index.css 会被代理到 https://g.alicdn.com/tb-page/taobao-home, 实际返回 https://g.alicdn.com/tb-page/taobao-home/0.0.50/index.css
+  'GET /someDir/(.*)': 'https://g.alicdn.com/tb-page/taobao-home',
+
   // 本地文件替换
   'GET /local': './local.js',
   
