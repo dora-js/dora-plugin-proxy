@@ -1,4 +1,4 @@
-## USEAGE
+## USAGE
 
 ```bash
 $ npm i
