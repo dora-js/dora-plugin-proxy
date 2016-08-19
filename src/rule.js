@@ -175,6 +175,9 @@ export default function(args) {
       return {
         ...header,
         'access-control-allow-origin': '*',
+        'access-control-allow-headers':'Origin, X-Requested-With, Content-Type, Accept,Content-Range, Content-Disposition, Content-Description,Set-Cookie,, Access-Control-Request-Method, Access-Control-Request-Headers,Authorization,Authentication',
+		    'access-control-allow-methods':'GET,POST,PUT,DELETE,PATCH,HEAD,OPTIONS',
+		    'access-control-expose-headers':'Set-Cookie,Authorization,Authentication' 
       };
     },
 
