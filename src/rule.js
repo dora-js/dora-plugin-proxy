@@ -118,7 +118,8 @@ export default function(args) {
           if (proxyConfig.hasOwnProperty(pattern)) {
             const subPath = getSubPath(option, pattern);
             if (subPath) {
-              retPath = retPath.replace(RegExp(pattern.replace(/\s*(?:GET|POST)\s+/i, '')), '/' + subPath);
+              const urlPattern = RegExp(pattern.replace(/\s*(?:GET|POST)\s+/i, ''));
+              retPath = retPath.replace(urlPattern, `/${subPath}`);
             }
           }
         }
