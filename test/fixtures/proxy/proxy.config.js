@@ -8,8 +8,7 @@ module.exports = {
 
   // Forward with subPath
   // https://g.alicdn.com/tb-page/taobao-home/0.0.50/index.css
-  '/someDir/(.*)': 'https://g.alicdn.com/tb-page/taobao-home/',
-
+  'GET /someDir/(.*)': 'https://g.alicdn.com/tb-page/taobao-home/',
 
   // 本地文件
   'GET /test-local': './local',
