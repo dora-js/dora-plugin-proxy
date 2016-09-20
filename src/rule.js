@@ -118,7 +118,7 @@ export default function(args) {
           if (proxyConfig.hasOwnProperty(pattern)) {
             const subPath = getSubPath(option, pattern);
             if (subPath) {
-              retPath = winPath(join(proxyConfig(pattern), subPath))
+              retPath = retPath.replace(RegExp(pattern.replace(/\s*(?:GET|POST)\s+/i, '')), '/' + subPath);
             }
           }
         }
