@@ -79,6 +79,8 @@ export function getRes(req, callback) {
     switch (typeof data) {
       case 'string':
         return data;
+      case 'function':
+        return data();
       default:
         return JSON.stringify(data);
     }
