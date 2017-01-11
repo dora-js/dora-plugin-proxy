@@ -9,7 +9,7 @@ Proxy plugin for dora.
 
 ----
 
-**📢 本库已久未维护。如遇 API mock 问题，建议考虑 [roadhog](https://github.com/sorrycc/roadhog)，支持类似的 mock 方案，功能更强大，bug 更少。**
+**📢 本库已久未维护。如遇 API mock 问题，建议考虑 [roadhog](https://github.com/sorrycc/roadhog)，支持类似的 [mock 方案](https://github.com/sorrycc/roadhog#mock)，更强大功能，更少 bug。**
 
 ----
 
