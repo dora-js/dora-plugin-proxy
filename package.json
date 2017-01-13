@@ -23,7 +23,7 @@
     "crequire": "^1.7.0",
     "dora-anyproxy": "~3.8.4",
     "is-plain-object": "~2.0.1",
-    "mime-db": "~1.21.0",
+    "mime-db": "~1.22.0",
     "mime-type": "~3.0.4",
     "path-to-regexp": "~1.2.1",
     "qs": "~6.0.1"
