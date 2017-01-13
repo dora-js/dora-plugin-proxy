@@ -15,6 +15,10 @@ export function isRemote(str) {
   return str.indexOf('http://') === 0 || str.indexOf('https://') === 0;
 }
 
+export function isPic(str){
+  return str.endsWith('.png') || str.endsWith('.jpg');
+}
+
 export function getExpects(pattern) {
   const expect = {};
   if (pattern.indexOf(' ') > -1) {
@@ -121,6 +125,10 @@ export function getRes(req, callback) {
     },
     end(data) {
       callback(status, headers, normalizeData(data));
+      return this;
+    },
+    pic(data){
+      callback(status, {"content-type":"image/png"}, data);
       return this;
     },
   };

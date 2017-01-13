@@ -1,5 +1,5 @@
 import urlLib from 'url';
-import { isRemote, isMatch, getParams, getRes } from './utils';
+import { isRemote, isMatch, getParams, getRes,isPic } from './utils';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import { parse as parseUrl } from 'url';
@@ -74,6 +74,13 @@ export default function(args) {
         if (typeof val === 'function') {
           log.info(`${req.method} ${req.url} matches ${pattern}, respond with custom function`);
           val(req, getRes(req, callback));
+          return true;
+        }
+
+        // Handle with pic
+        if (typeof val === 'string' && isPic(val)) {
+          log.info(`${req.method} ${req.url} matches ${pattern}, respond with pic`);
+          getRes(req, callback).pic(readFileSync(join(cwd, val)));
           return true;
         }
 
