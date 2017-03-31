@@ -34,7 +34,7 @@
     "babel-istanbul": "^0.6.0",
     "babel-plugin-add-module-exports": "~0.1.1",
     "babel-preset-es2015": "~6.3.13",
-    "babel-preset-stage-0": "~6.3.13",
+    "babel-preset-stage-0": "~6.5.0",
     "coveralls": "^2.11.6",
     "dora": "0.x",
     "eslint": "~1.10.3",
