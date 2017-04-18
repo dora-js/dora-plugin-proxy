@@ -39,7 +39,7 @@
     "dora": "0.x",
     "eslint": "~1.10.3",
     "eslint-config-airbnb": "~3.1.0",
-    "expect": "~1.13.0",
+    "expect": "~1.14.0",
     "mocha": "~2.4.1",
     "pre-commit": "~1.1.2",
     "request": "^2.67.0"
