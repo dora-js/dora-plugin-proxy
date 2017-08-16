@@ -29,8 +29,8 @@ $ ./node_modules/.bin/dora --plugins openproxy
 多开时需要指定不同的端口号，如：
 
 ```
-dora --port 7001 --plugins "proxy?{port:7002},webpack,webpack-hmr"
-dora --port 7003 --plugins "proxy?{port:7004},webpack,webpack-hmr"
+dora --port 7001 --plugins "openproxy?{port:7002},webpack,webpack-hmr"
+dora --port 7003 --plugins "openproxy?{port:7004},webpack,webpack-hmr"
 ```
 
 ## Docs
