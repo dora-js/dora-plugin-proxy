@@ -1,11 +1,11 @@
 {
-  "name": "dora-plugin-proxy",
-  "version": "0.8.6",
+  "name": "dora-plugin-openproxy",
+  "version": "0.9.3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dora-js/dora-plugin-proxy"
+    "url": "https://github.com/minwe/dora-plugin-proxy"
   },
-  "homepage": "https://github.com/dora-js/dora-plugin-proxy",
+  "homepage": "https://github.com/minwe/dora-plugin-proxy",
   "author": "chencheng <sorrycc@gmail.com>",
   "license": "MIT",
   "main": "./lib",
@@ -14,14 +14,15 @@
     "test": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha --no-timeouts",
     "debug": "./node_modules/.bin/mocha --require babel-core/register --no-timeouts",
     "lint": "eslint --ext .js src",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "prepublish": "npm run build"
   },
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
     "crequire": "^1.7.0",
-    "dora-anyproxy": "~3.9.0",
+    "dora-openproxy": "~3.9.0",
     "is-plain-object": "~2.0.1",
     "mime-db": "~1.21.0",
     "mime-type": "~3.0.4",
@@ -58,5 +59,8 @@
   },
   "files": [
     "lib"
+  ],
+  "maintainers": [
+    "minwe <hegfirose@gmail.com>"
   ]
 }

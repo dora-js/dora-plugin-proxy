@@ -1,11 +1,13 @@
-# dora-plugin-proxy
+# dora-plugin-openproxy
 
-[![NPM version](https://img.shields.io/npm/v/dora-plugin-proxy.svg?style=flat)](https://npmjs.org/package/dora-plugin-proxy)
-[![Build Status](https://img.shields.io/travis/dora-js/dora-plugin-proxy.svg?style=flat)](https://travis-ci.org/dora-js/dora-plugin-proxy)
-[![Coverage Status](https://img.shields.io/coveralls/dora-js/dora-plugin-proxy.svg?style=flat)](https://coveralls.io/r/dora-js/dora-plugin-proxy)
-[![NPM downloads](http://img.shields.io/npm/dm/dora-plugin-proxy.svg?style=flat)](https://npmjs.org/package/dora-plugin-proxy)
+[![NPM version](https://img.shields.io/npm/v/dora-plugin-proxy.svg?style=flat)](https://npmjs.org/package/dora-plugin-openproxy)
+[![Build Status](https://img.shields.io/travis/dora-js/dora-plugin-openproxy.svg?style=flat)](https://travis-ci.org/dora-js/dora-plugin-openproxy)
+[![Coverage Status](https://img.shields.io/coveralls/dora-js/dora-plugin-openproxy.svg?style=flat)](https://coveralls.io/r/dora-js/dora-plugin-openproxy)
+[![NPM downloads](http://img.shields.io/npm/dm/dora-plugin-openproxy.svg?style=flat)](https://npmjs.org/package/dora-plugin-proxy)
 
 Proxy plugin for dora.
+
+> 基于 https://github.com/dora-js/dora-plugin-proxy，解决[多开 proxy 无法正常运行问题](https://github.com/dora-js/dora/issues/101)
 
 ----
 
@@ -16,8 +18,19 @@ Proxy plugin for dora.
 ## Usage
 
 ```bash
-$ npm i dora dora-plugin-proxy -SD
-$ ./node_modules/.bin/dora --plugins proxy
+$ npm i dora dora-plugin-openproxy -SD
+$ ./node_modules/.bin/dora --plugins openproxy
+```
+
+## 多开问题
+
+- https://github.com/dora-js/dora/issues/101
+
+多开时需要指定不同的端口号，如：
+
+```
+dora --port 7001 --plugins "proxy?{port:7002},webpack,webpack-hmr"
+dora --port 7003 --plugins "proxy?{port:7004},webpack,webpack-hmr"
 ```
 
 ## Docs
@@ -98,4 +111,3 @@ module.exports = {
   },
 };
 ```
-
