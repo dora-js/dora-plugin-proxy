@@ -5,3 +5,5 @@ node_modules
 src/__tests__/fixtures/**/dist
 coverage
 lib
+yarn.lock
+
